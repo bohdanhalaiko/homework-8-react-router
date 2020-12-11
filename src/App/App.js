@@ -3,6 +3,8 @@ import dataUsers from './DataStorage.js';
 import Info from './Info.js';
 import IsLogIn from './IsLogIn.js';
 import Login from './Login.js';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 
 import {
   BrowserRouter as Router,
@@ -29,16 +31,17 @@ class App extends React.Component {
       <Router>
         <div>
           <IsLogIn isLogIn={this.state.isLogIn} />
-          <ul>
-            <li>
-              <Link to="/login">Log in</Link>
-            </li>
-            <li>
-              <Link to="/to-do">Info</Link>
-            </li>
-          </ul>
-
-          <hr />
+          <Link to="/login">
+            <MenuItem>
+              <Typography variant="inherit">Log in</Typography>
+            </MenuItem>
+          </Link>
+          <Link to="/to-do">
+            <MenuItem>
+              <Typography variant="inherit">Info</Typography>
+            </MenuItem>
+          </Link>
+          <hr/>
 
           <Switch>
             <Route exact path="/login">
@@ -53,7 +56,7 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
-      </Router>
+      </Router >
     );
   }
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class Login extends React.Component {
   constructor(props) {
@@ -21,17 +23,27 @@ class Login extends React.Component {
   render() {
     let content =
       <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
+        <TextField
+          required
+          label="Required"
+          id="outlined-size-small"
+          variant="outlined"
+          size="small"
           placeholder="email"
           value={this.state.input}
           onChange={this.handleInput}
-          required
         />
-        <button type="submit">log-in</button>
+        <Button variant="outlined" type="submit" size="large">log-in</Button>
       </form>
     if (this.props.isLogIn) {
-      content = <button onClick={() => this.props.logOff()}>log-off</button>;
+      content =
+        <Button
+          size="large"
+          variant="outlined"
+          onClick={() => this.props.logOff()}
+        >
+          log-off
+        </Button>;
     }
     return (
       <div>{content}</div>

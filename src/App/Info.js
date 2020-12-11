@@ -9,7 +9,7 @@ class Info extends React.Component {
     }
     return (
       <div>
-        {content};
+        {content}
       </div>
     )
   }

@@ -1,5 +1,7 @@
 import React from 'react';
 import dataUsers from './DataStorage.js';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class Todo extends React.Component {
   constructor(props) {
@@ -17,13 +19,13 @@ class Todo extends React.Component {
     return state;
   }
   handleEditProfile = () => {
-    const {edit} = this.state;
+    const { edit } = this.state;
     if (edit) {
-      let userUpdate = {...this.state};
+      let userUpdate = { ...this.state };
       userUpdate.email = this.props.isLogIn;
       userUpdate.edit = false;
-      for(const prop in userUpdate){
-        if(!userUpdate[prop]) delete userUpdate[prop];
+      for (const prop in userUpdate) {
+        if (!userUpdate[prop]) delete userUpdate[prop];
       }
       dataUsers(userUpdate, 'set');
     }
@@ -38,32 +40,54 @@ class Todo extends React.Component {
   render() {
     const user = dataUsers({ email: this.props.isLogIn }, 'get');
     let li = Object.keys(user).map(el => {
-      return <li key={el}>Your {el}: {user[el]}</li>
+      return (
+        <li className="li" key={el}>
+          <span className="prop">Your {el}:</span>
+          <span>{user[el]}</span>
+        </li>
+      );
     });
     const editProfile =
-      <div>
-        <label>First name
-          <input type="text" name='firstName' value={this.state.firstName} onChange={this.handleInput} />
-        </label><br />
-        <label>Last name
-          <input type="text" name='lastName' value={this.state.lastName} onChange={this.handleInput} />
-        </label><br />
-        <label>Country
-          <input type="text" name='country' value={this.state.country} onChange={this.handleInput} />
-        </label><br />
-        <label>About
-          <textarea name='about' value={this.state.about} onChange={this.handleInput} />
-        </label><br />
-        <button onClick={this.handleCancel}>Cancel</button>
-      </div>;
+      <>
+        {
+          ['firstName', 'lastName', 'country', 'about'].map((el, i) => {
+            return (
+              <div key={i}>
+                <TextField
+
+                  variant="filled"
+                  size="small"
+                  label={el}
+                  name={el}
+                  value={this.state[el]}
+                  onChange={this.handleInput}
+                /><br />
+              </div>
+            );
+          })
+        }
+        <Button
+          key="button"
+          size="large"
+          variant="outlined"
+          onClick={this.handleCancel}
+        >
+          Cancel
+        </Button>
+      </>;
     return (
       <div>
-        <ul>
+        <ul className="ul">
           {li}
         </ul>
-        <br />
         {this.state.edit && editProfile}
-        <button onClick={this.handleEditProfile}>Edit profile</button>
+        <Button
+          size="large"
+          variant="outlined"
+          onClick={this.handleEditProfile}
+        >
+          Edit profile
+        </Button>
       </div>
     )
   }
